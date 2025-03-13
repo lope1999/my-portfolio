@@ -76,10 +76,10 @@ const ContactSection = () => {
 
     emailjs
       .sendForm(
-        process.env.REACT_APP_SERVICE_ID || "",
-        process.env.REACT_APP_TEMPLATE_ID || "",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID || "",
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "",
         formRef.current,
-        process.env.REACT_APP_PUBLIC_KEY || ""
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY || ""
       )
       .then(
         (result) => {
