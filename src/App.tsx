@@ -1,25 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ThemeContextProvider } from "./context/ThemeContext";
+import GlobalStyles from "./styles/GlobalStyles";
+import HeroSection from "./pages/HeroSection";
+import AboutSection from "./pages/AboutSection";
+import ProjectsSection from "./pages/ProjectsSection";
+import { IconContext } from "react-icons";
+import MainLayout from "./pages/MainLayout";
+import TechStack from "./components/TechStack";
+import ContactSection from "./pages/ContactSection";
+
+// About Section – A clean, engaging section that highlights who you are.
+// Projects Section – A sleek way to showcase your best work.
+// Tech Stack Section – Highlight the technologies you use with cool animations.
+// Contact Section – A professional yet inviting way for people to reach out.
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContextProvider>
+      <IconContext.Provider value={{ size: "3rem" }}>
+        <GlobalStyles />
+        <MainLayout>
+          <HeroSection />
+          <AboutSection />
+          <TechStack />
+          <ProjectsSection />
+          <ContactSection />
+        </MainLayout>
+      </IconContext.Provider>
+    </ThemeContextProvider>
   );
 }
 
