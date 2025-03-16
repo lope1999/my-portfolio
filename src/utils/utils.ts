@@ -55,6 +55,79 @@ export const navItems = [
 
 export const projectCategories = ["All", "Web Development", "E-Commerce", "AI & ML", "UI/UX"];
 
+export const shapes = [
+  {
+    initial: { x: -100, y: 0 },
+    animate: { x: 100, y: 20, rotate: 360 },
+    transition: {
+      duration: 10,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
+    },
+    style: { top: "15%", left: "5%" },
+  },
+  {
+    initial: { x: 50, y: 0 },
+    animate: { x: -50, y: -20, rotate: -360 },
+    transition: {
+      duration: 8,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
+    },
+    style: { top: "70%", left: "90%" },
+  },
+  {
+    initial: { x: 0, y: 50 },
+    animate: { x: 0, y: -50, rotate: 180 },
+    transition: {
+      duration: 12,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
+    },
+    style: { top: "80%", left: "30%" },
+  },
+  {
+    initial: { x: 0, y: 50 },
+    animate: { x: 0, y: -50, rotate: 180 },
+    transition: {
+      duration: 12,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
+    },
+    style: { top: "50%", left: "10%" },
+  },
+  {
+    initial: { x: 0, y: 50 },
+    animate: { x: 0, y: -50, rotate: 180 },
+    transition: {
+      duration: 12,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
+    },
+    style: { top: "10%", left: "80%" },
+  },
+  {
+    initial: { x: -30, y: 0 },
+    animate: { x: 30, y: 20, rotate: 360 },
+    transition: {
+      duration: 9,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
+    },
+    style: { top: "30%", left: "25%" },
+  },
+  {
+    initial: { x: 30, y: 0 },
+    animate: { x: -30, y: -20, rotate: -360 },
+    transition: {
+      duration: 11,
+      repeat: Infinity,
+      repeatType: "mirror" as const,
+    },
+    style: { top: "50%", left: "65%" },
+  },
+];
+
 /**
  * Here we wrap literal <h2> tags in spans with .tag class,
  * so React renders them as text instead of actual HTML tags.

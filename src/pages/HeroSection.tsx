@@ -3,6 +3,7 @@ import styled, { keyframes } from "styled-components";
 import { motion } from "framer-motion";
 import Button from "../components/Button";
 import Typewriter from "typewriter-effect";
+import { shapes } from "../utils/utils";
 
 const floatAnimation = keyframes`
   0% { transform: translateY(0) }
@@ -41,79 +42,6 @@ const Title = styled(motion.h1)`
 `;
 
 const HeroSection: React.FC = () => {
-  const shapes = [
-    {
-      initial: { x: -100, y: 0 },
-      animate: { x: 100, y: 20, rotate: 360 },
-      transition: {
-        duration: 10,
-        repeat: Infinity,
-        repeatType: "mirror" as const,
-      },
-      style: { top: "15%", left: "5%" },
-    },
-    {
-      initial: { x: 50, y: 0 },
-      animate: { x: -50, y: -20, rotate: -360 },
-      transition: {
-        duration: 8,
-        repeat: Infinity,
-        repeatType: "mirror" as const,
-      },
-      style: { top: "70%", left: "90%" },
-    },
-    {
-      initial: { x: 0, y: 50 },
-      animate: { x: 0, y: -50, rotate: 180 },
-      transition: {
-        duration: 12,
-        repeat: Infinity,
-        repeatType: "mirror" as const,
-      },
-      style: { top: "80%", left: "30%" },
-    },
-    {
-      initial: { x: 0, y: 50 },
-      animate: { x: 0, y: -50, rotate: 180 },
-      transition: {
-        duration: 12,
-        repeat: Infinity,
-        repeatType: "mirror" as const,
-      },
-      style: { top: "50%", left: "10%" },
-    },
-    {
-      initial: { x: 0, y: 50 },
-      animate: { x: 0, y: -50, rotate: 180 },
-      transition: {
-        duration: 12,
-        repeat: Infinity,
-        repeatType: "mirror" as const,
-      },
-      style: { top: "10%", left: "80%" },
-    },
-    {
-      initial: { x: -30, y: 0 },
-      animate: { x: 30, y: 20, rotate: 360 },
-      transition: {
-        duration: 9,
-        repeat: Infinity,
-        repeatType: "mirror" as const,
-      },
-      style: { top: "30%", left: "25%" },
-    },
-    {
-      initial: { x: 30, y: 0 },
-      animate: { x: -30, y: -20, rotate: -360 },
-      transition: {
-        duration: 11,
-        repeat: Infinity,
-        repeatType: "mirror" as const,
-      },
-      style: { top: "50%", left: "65%" },
-    },
-  ];
-
   return (
     <HeroContainer
       initial={{ opacity: 0, y: -30 }}
