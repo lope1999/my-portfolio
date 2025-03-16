@@ -13,6 +13,7 @@ interface ButtonProps {
     | import("framer-motion").TargetAndTransition
     | import("framer-motion").VariantLabels;
   type?: "submit" | "button";
+  style?: React.CSSProperties;
 }
 
 const StyledButton = styled(motion.button)<{ as?: string }>`
@@ -42,6 +43,7 @@ const Button: React.FC<ButtonProps> = ({
   whileHover,
   whileTap,
   type = "button",
+  style,
 }) => {
   return (
     <StyledButton
@@ -50,6 +52,8 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       whileHover={whileHover}
       whileTap={whileTap}
+      type={type}
+      style={style}
     >
       {children}
     </StyledButton>
