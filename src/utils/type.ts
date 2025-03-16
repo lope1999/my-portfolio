@@ -16,3 +16,12 @@ export interface SocialLink {
 export interface NavbarProps {
     scrolled: boolean;
   }
+
+export interface Project {
+  name: string;
+  description: string;
+  image: string;
+  url: string;
+  category?: string;
+  id: string;
+}

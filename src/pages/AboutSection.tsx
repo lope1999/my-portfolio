@@ -8,7 +8,7 @@ const AboutContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 150vh;
   text-align: center;
   padding: 80px 50px;
   background: ${({ theme }) => theme.background};
@@ -18,6 +18,7 @@ const AboutContainer = styled.section`
 
   @media (max-width: 768px) {
     padding: 30px 10px;
+    height: 100vh;
   }
 `;
 
@@ -125,11 +126,18 @@ const AboutSection = () => {
         <Divider />
         <Description>
           <span className="tag">&lt;p&gt;</span>
-          I&apos;m Suliat Titilope Alaga, a passionate Software Engineer and
-          Entrepreneur based in Lagos, Nigeria. With a love for innovation and
-          creativity, I build seamless digital experiences and run a thriving
-          handmade footwear brand. My journey in tech and business has been a
-          mix of learning, resilience, and impact.
+          I&apos;m Suliat Titilope Alaga, a Software Engineer with years of
+          experience building web-based applications, and tools for finance and
+          security. I hold a First Class (Honours) Bachelor’s Degree in Computer
+          Science and a Distinction National Diploma’s Degree in Data Processing
+          . Additionally, I am proficient in HTML, CSS, JavaScript, Material UI,
+          and Reactjs for frontend development, and have experience with
+          Java(Springboot Framework) and Nestjs for backend development . I am a
+          skilled full-stack developer and open to opportunities that would
+          enable me work on diverse projects and support the vision of the
+          company to deliver exceptional service without compromising standards.
+          I'm confident, naturally curious, and perpetually working on improving
+          my chops one design problem at a time.
           <span className="tag">&lt;/p&gt;</span>
         </Description>
       </TextContainer>

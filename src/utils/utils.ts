@@ -53,7 +53,7 @@ export const navItems = [
     { href: "#contact", label: "Contact" },
 ];
 
-export const projectCategories = ["All", "Web Development", "E-Commerce", "AI & ML", "UI/UX"];
+export const projectCategories = ["All", "Web Development", "API", "AI & ML", "E-Commerce"];
 
 export const shapes = [
   {
@@ -146,6 +146,7 @@ export const Title = styled(motion.h2)`
     margin: 0 8px;
     color: ${({ theme }) => theme.text};
     opacity: 0.7;
+    font-style: italic;
   }
 
   @media (max-width: 768px) {

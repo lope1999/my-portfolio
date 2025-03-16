@@ -73,7 +73,7 @@ const HeroSection: React.FC = () => {
               .start();
           }}
           options={{
-            loop: true, // Remove if you don't want it looping
+            loop: true,
           }}
         />
       </Title>

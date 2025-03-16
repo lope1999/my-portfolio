@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../utils/firebase";
 import { AnimatePresence, motion } from "framer-motion";
 import styled, { keyframes } from "styled-components";
 import FeaturedProjects from "../components/FeaturedProjectsCarousel";
 import ProjectGrid from "../components/ProjectsGrid";
 import { projectCategories } from "../utils/utils";
 import { Title } from "../utils/utils";
+import { Project } from "../utils/type";
+import { ChevronDown, ChevronUp, LoaderPinwheel } from "lucide-react";
 
-/* Container Styles */
 const ProjectsContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -16,7 +19,6 @@ const ProjectsContainer = styled.section`
   color: ${({ theme }) => theme.text};
 `;
 
-/* Filter Container Styles */
 const FilterContainer = styled.div`
   display: flex;
   gap: 10px;
@@ -29,7 +31,6 @@ const FilterContainer = styled.div`
   }
 `;
 
-/* Filter Button Styles */
 const FilterButton = styled.button<{ active?: boolean }>`
   padding: 10px 15px;
   font-size: 1rem;
@@ -52,14 +53,12 @@ const FilterButton = styled.button<{ active?: boolean }>`
   }
 `;
 
-/* Keyframes for moving gradient around the border */
 const gradientFlow = keyframes`
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 `;
 
-/* Show More Button with a continuously moving gradient border */
 const ShowMoreButton = styled(motion.button)`
   margin-top: 5px;
   padding: 12px 24px;
@@ -105,15 +104,32 @@ const ShowMoreButton = styled(motion.button)`
   }
 `;
 
-/* Wrapper for the grid to animate collapse/expand */
 const AnimatedGridWrapper = styled(motion.div)`
   width: 100%;
 `;
 
 const ProjectsSection = () => {
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [showMore, setShowMore] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [projects, setProjects] = useState<Project[]>([]);
 
+  const [selectedCategory, setSelectedCategory] = useState("All");
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "portfolio"));
+        const data = querySnapshot.docs.map((doc) => doc.data() as Project);
+        setProjects(data);
+      } catch (error) {
+        console.error("Error fetching projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProjects();
+  }, []);
   return (
     <ProjectsContainer id="projects">
       <Title>
@@ -121,8 +137,6 @@ const ProjectsSection = () => {
         Projects
         <span className="tag">&lt;/h2&gt;</span>
       </Title>
-
-      {/* Filter Buttons */}
       <FilterContainer>
         {projectCategories.map((category) => (
           <FilterButton
@@ -134,16 +148,33 @@ const ProjectsSection = () => {
           </FilterButton>
         ))}
       </FilterContainer>
-
-      {/* Featured Projects Carousel */}
-      <FeaturedProjects />
-
-      {/* Show More / Show Less Button */}
-      <ShowMoreButton onClick={() => setShowMore(!showMore)}>
-        {showMore ? "Show Less" : "Show More"}
-      </ShowMoreButton>
-
-      {/* AnimatePresence handles mounting/unmounting animations */}
+      <FeaturedProjects projects={projects} />
+      {loading ? (
+        <AnimatePresence>
+          <motion.div
+            initial={{ rotate: 0 }}
+            animate={{ rotate: 360 }}
+            exit={{ rotate: 0 }}
+            transition={{ repeat: Infinity, duration: 1 }}
+          >
+            <LoaderPinwheel size={50} />
+          </motion.div>
+        </AnimatePresence>
+      ) : (
+        <ShowMoreButton onClick={() => setShowMore(!showMore)}>
+          {showMore ? (
+            <span style={{ display: "flex", alignItems: "center" }}>
+              Show Less
+              <ChevronUp size={20} />
+            </span>
+          ) : (
+            <span style={{ display: "flex", alignItems: "center" }}>
+              Show More
+              <ChevronDown size={20} />
+            </span>
+          )}
+        </ShowMoreButton>
+      )}
       <AnimatePresence>
         {showMore && (
           <AnimatedGridWrapper
@@ -152,7 +183,10 @@ const ProjectsSection = () => {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <ProjectGrid selectedCategory={selectedCategory} />
+            <ProjectGrid
+              projects={projects}
+              selectedCategory={selectedCategory}
+            />
           </AnimatedGridWrapper>
         )}
       </AnimatePresence>

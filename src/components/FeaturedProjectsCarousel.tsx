@@ -5,8 +5,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import styled from "styled-components";
-import { projects } from "../utils/utils";
 import { Swiper } from "swiper/react";
+import { Project } from "../utils/type";
+
+interface FeaturedProjectsProps {
+  projects: Project[];
+}
 
 const StyledSwiper = styled.div`
   .swiper-button-next,
@@ -53,7 +57,7 @@ const ProjectCard = styled(motion.a)`
   }
 `;
 
-const FeaturedProjects = () => {
+const FeaturedProjects = ({ projects }: FeaturedProjectsProps) => {
   return (
     <CarouselContainer>
       <h2>Featured Projects</h2>
@@ -68,9 +72,9 @@ const FeaturedProjects = () => {
         >
           {projects.map((project, index) => (
             <SwiperSlide key={index}>
-              <ProjectCard href={project.link} target="_blank">
-                <img src={project.image} alt={project.title} />
-                <h3>{project.title}</h3>
+              <ProjectCard href={project.url} target="_blank">
+                <img src={project.image} alt={project.name} />
+                <h3>{project.name}</h3>
               </ProjectCard>
             </SwiperSlide>
           ))}
