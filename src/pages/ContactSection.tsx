@@ -116,9 +116,11 @@ const ContactSection = () => {
           <span className="tag">&lt;/h2&gt;</span>
         </Title>
         <Description>
-          I am open to freelance opportunities, startups, and large-scale
-          projects. However, if you have any other requests or questions, kindly
-          fill the form below and I will be happy to respond.
+          <span className="tag">&lt;p&gt;</span>I am open to freelance
+          opportunities, startups, and large-scale projects. However, if you
+          have any other requests or questions, kindly fill the form below and I
+          will be happy to respond.
+          <span className="tag">&lt;/p&gt;</span>
         </Description>
         <ContactForm ref={formRef} onSubmit={handleSubmit}>
           <InputField placeholder="Name" type="text" name="name" required />

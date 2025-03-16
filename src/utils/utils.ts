@@ -172,7 +172,13 @@ export const Description = styled(motion.p)`
   font-weight: 300;
   opacity: 0.9;
   color: ${({ theme }) => theme.text};
+
   margin-bottom: 20px;
+  .tag {
+      font-size: 0.9rem;
+      margin: 0 8px;
+      opacity: 0.7;
+    }
 
   @media (max-width: 768px) {
     text-align: center;
@@ -188,6 +194,7 @@ export const Description = styled(motion.p)`
       font-size: 0.5rem;
       margin: 0 8px;
       opacity: 0.7;
+    }
   }
 `;
 
