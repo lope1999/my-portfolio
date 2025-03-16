@@ -19,6 +19,12 @@ const FilterContainer = styled.div`
   display: flex;
   gap: 10px;
   margin-bottom: 30px;
+  flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    gap: 5px;
+  }
 `;
 
 const FilterButton = styled.button`
@@ -33,6 +39,7 @@ const FilterButton = styled.button`
   box-shadow: ${({ active }) => (active ? "0px 4px 15px rgba(0, 0, 0, 0.2)" : "none")};
 
   &:hover {
+    padding: 5px 10px;
     background: ${({ theme }) => theme.accent};
     color: ${({ theme }) => theme.text};
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);

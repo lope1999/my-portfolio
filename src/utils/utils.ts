@@ -77,6 +77,18 @@ export const Title = styled(motion.h2)`
 
   @media (max-width: 768px) {
     font-size: 2rem;
+    text-align: center;
+  }
+
+    @media (max-width: 450px) {
+      font-size: 1.7rem;
+      text-align: center;
+
+    .tag {
+      font-size: 0.7rem;
+      margin: 0 8px;
+      opacity: 0.7;
+  }
   }
 `;
 
@@ -85,6 +97,24 @@ export const Description = styled(motion.p)`
   line-height: 1.6;
   font-weight: 300;
   opacity: 0.9;
+  color: ${({ theme }) => theme.text};
+  margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    text-align: center;
+    font-size: 1rem;
+
+  }
+
+    @media (max-width: 450px) {
+      font-size: 0.6rem;
+      text-align: center;
+
+    .tag {
+      font-size: 0.5rem;
+      margin: 0 8px;
+      opacity: 0.7;
+  }
 `;
 
 

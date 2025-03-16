@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "../components/Button";
-import { Title } from "../utils/utils";
+import { Description, Title } from "../utils/utils";
 import emailjs from "emailjs-com";
 
 const ContactContainer = styled(motion.section)`
@@ -55,6 +55,7 @@ const InputField = styled.input`
   border: 1px solid #ccc;
   font-size: 1rem;
   outline: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const TextArea = styled.textarea`
@@ -64,6 +65,7 @@ const TextArea = styled.textarea`
   font-size: 1rem;
   resize: vertical;
   outline: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
 `;
 
 const ContactSection = () => {
@@ -102,7 +104,6 @@ const ContactSection = () => {
       viewport={{ once: true }}
       id="contact"
     >
-      {/* FORM SECTION */}
       <FormWrapper>
         <Title
           initial={{ opacity: 0, x: -50 }}
@@ -114,6 +115,11 @@ const ContactSection = () => {
           Get in Touch
           <span className="tag">&lt;/h2&gt;</span>
         </Title>
+        <Description>
+          I am open to freelance opportunities, startups, and large-scale
+          projects. However, if you have any other requests or questions, kindly
+          fill the form below and I will be happy to respond.
+        </Description>
         <ContactForm ref={formRef} onSubmit={handleSubmit}>
           <InputField placeholder="Name" type="text" name="name" required />
           <InputField placeholder="Email" type="email" name="email" required />
@@ -128,7 +134,6 @@ const ContactSection = () => {
         </ContactForm>
       </FormWrapper>
 
-      {/* MAP SECTION */}
       <MapWrapper
         initial={{ opacity: 0, x: 50 }}
         whileInView={{ opacity: 1, x: 0 }}
