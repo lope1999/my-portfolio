@@ -5,6 +5,14 @@ import ThemeToggle from "./ThemeToggle";
 import { NavbarProps } from "../utils/type";
 import { navItems } from "../utils/utils";
 
+// A small wrapper for our icon animations
+const IconWrapper = styled(motion.span)`
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px; /* space between icon and label */
+  color: inherit; /* inherit text color */
+`;
+
 const NavbarContainer = styled(motion.nav)<NavbarProps>`
   position: fixed;
   top: 0;
@@ -42,6 +50,9 @@ const NavItem = styled(motion.a)`
   position: relative;
   cursor: pointer;
   transition: color 0.3s;
+
+  display: inline-flex; /* So icon & label align horizontally */
+  align-items: center;
 
   &:hover {
     color: ${({ theme }) => theme.text};
@@ -132,6 +143,8 @@ const MobileNavItem = styled(motion.a)`
   font-size: 1.2rem;
   cursor: pointer;
   transition: color 0.3s;
+  display: inline-flex; /* icon + label in one row */
+  align-items: center;
 
   &:hover {
     color: ${({ theme }) => theme.accent};
@@ -174,16 +187,37 @@ const Navbar = () => {
     <NavbarContainer scrolled={scrolled}>
       <h2>👩🏾‍💻 Suliat</h2>
       <RightContainer>
+        {/* Desktop Links */}
         <NavLinks>
-          <NavItem href="#about">About</NavItem>
-          <NavItem href="#projects">Projects</NavItem>
-          <NavItem href="#tech">Tech Stack</NavItem>
-          <NavItem href="#contact">Contact</NavItem>
+          {navItems.map((item, idx) => (
+            <NavItem
+              key={item.href}
+              href={item.href}
+              // Simple hover animation on the entire link
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300, damping: 15 }}
+              className={window.location.hash === item.href ? "active" : ""}
+            >
+              {/* Icon with its own hover animation */}
+              <IconWrapper
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.5 }}
+              >
+                {item.icon}
+              </IconWrapper>
+              {item.label}
+            </NavItem>
+          ))}
         </NavLinks>
+
+        {/* Theme Toggle */}
         <ThemeToggle />
+
+        {/* Mobile Menu Icon (Hamburger) */}
         <MobileMenuIcon onClick={() => setMenuOpen(true)}>☰</MobileMenuIcon>
       </RightContainer>
 
+      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {menuOpen && (
           <MobileMenuContainer
@@ -205,7 +239,14 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 * (index + 1) }}
                   className={window.location.hash === item.href ? "active" : ""}
+                  whileHover={{ scale: 1.05 }}
                 >
+                  <IconWrapper
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {item.icon}
+                  </IconWrapper>
                   {item.label}
                 </MobileNavItem>
               ))}

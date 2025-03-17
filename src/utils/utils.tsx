@@ -9,7 +9,7 @@ import {
   FaInstagram,
   FaLinkedin,
   FaTwitter,
-  FaJava
+  FaJava,
 } from "react-icons/fa";
 import { SiTypescript } from "react-icons/si";
 import { MdAlternateEmail } from "react-icons/md";
@@ -17,13 +17,44 @@ import { SocialLink, Tech } from "./type";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { SULIAT_01 } from "../assets";
+import { User, FolderOpen, Settings, Mail } from "lucide-react";
 
 export const projects = [
-  { id: 1, title: "Portfolio Website", category: "Web Development", image: SULIAT_01, link:'#' },
-  { id: 2, title: "E-Commerce Store", category: "E-Commerce", image: SULIAT_01, link:'#' },
-  { id: 3, title: "AI Chatbot", category: "AI & ML", image: SULIAT_01, link:'#' },
-  { id: 4, title: "Mobile App UI", category: "UI/UX", image: SULIAT_01, link:'#' },
-  { id: 5, title: "Dashboard Design", category: "UI/UX", image: SULIAT_01, link:'#' }
+  {
+    id: 1,
+    title: "Portfolio Website",
+    category: "Web Development",
+    image: SULIAT_01,
+    link: "#",
+  },
+  {
+    id: 2,
+    title: "E-Commerce Store",
+    category: "E-Commerce",
+    image: SULIAT_01,
+    link: "#",
+  },
+  {
+    id: 3,
+    title: "AI Chatbot",
+    category: "AI & ML",
+    image: SULIAT_01,
+    link: "#",
+  },
+  {
+    id: 4,
+    title: "Mobile App UI",
+    category: "UI/UX",
+    image: SULIAT_01,
+    link: "#",
+  },
+  {
+    id: 5,
+    title: "Dashboard Design",
+    category: "UI/UX",
+    image: SULIAT_01,
+    link: "#",
+  },
 ];
 
 export const techStacks: Tech[] = [
@@ -31,29 +62,50 @@ export const techStacks: Tech[] = [
   { name: "Node.js", icon: FaNodeJs, color: "#388039" },
   { name: "Java", icon: FaJava, color: "#4E88C3" },
   { name: "JavaScript", icon: FaJs, color: "#F0DC57" },
-  {name: 'TypeScript', icon:SiTypescript, color:'#127ECE'},
+  { name: "TypeScript", icon: SiTypescript, color: "#127ECE" },
   { name: "HTML", icon: FaHtml5, color: "#FF5227" },
   { name: "CSS", icon: FaCss3, color: "#58A7DF" },
   { name: "Git", icon: FaGit, color: "#080808" },
 ];
 
-
 export const socialLinks: SocialLink[] = [
-  { href: "mailto:alagasuliattitilope@gmail.com", icon: MdAlternateEmail, color: "#F15649" },
-  { href: "https://www.linkedin.com/in/suliat-titilope-alaga", icon: FaLinkedin, color: "#126ACA" },
+  {
+    href: "mailto:alagasuliattitilope@gmail.com",
+    icon: MdAlternateEmail,
+    color: "#F15649",
+  },
+  {
+    href: "https://www.linkedin.com/in/suliat-titilope-alaga",
+    icon: FaLinkedin,
+    color: "#126ACA",
+  },
   { href: "https://github.com/lope1999", icon: FaGithub, color: "#080808" },
-  { href: "https://twitter.com/AlagaSuliat", icon: FaTwitter, color: "#1BA5F6" },
-  { href: "https://www.instagram.com/___lope/profilecard/?igsh=ODZwY3Z6bzc4bHVm", icon: FaInstagram, color: "#FFC057" },
+  {
+    href: "https://twitter.com/AlagaSuliat",
+    icon: FaTwitter,
+    color: "#1BA5F6",
+  },
+  {
+    href: "https://www.instagram.com/___lope/profilecard/?igsh=ODZwY3Z6bzc4bHVm",
+    icon: FaInstagram,
+    color: "#FFC057",
+  },
 ];
 
 export const navItems = [
-    { href: "#about", label: "About" },
-    { href: "#projects", label: "Projects" },
-    { href: "#tech", label: "Tech Stack" },
-    { href: "#contact", label: "Contact" },
+  { href: "#about", label: "About", icon: <User size={18} /> },
+  { href: "#projects", label: "Projects", icon: <FolderOpen size={18} /> },
+  { href: "#tech", label: "Tech Stack", icon: <Settings size={18} /> },
+  { href: "#contact", label: "Contact", icon: <Mail size={18} /> },
 ];
 
-export const projectCategories = ["All", "Web Development", "API", "AI & ML", "E-Commerce"];
+export const projectCategories = [
+  "All",
+  "Web Development",
+  "API",
+  "AI & ML",
+  "E-Commerce",
+];
 
 export const shapes = [
   {
@@ -154,15 +206,15 @@ export const Title = styled(motion.h2)`
     text-align: center;
   }
 
-    @media (max-width: 450px) {
-      font-size: 1.7rem;
-      text-align: center;
+  @media (max-width: 450px) {
+    font-size: 1.7rem;
+    text-align: center;
 
     .tag {
       font-size: 0.7rem;
       margin: 0 8px;
       opacity: 0.7;
-  }
+    }
   }
 `;
 
@@ -175,20 +227,19 @@ export const Description = styled(motion.p)`
 
   margin-bottom: 20px;
   .tag {
-      font-size: 0.9rem;
-      margin: 0 8px;
-      opacity: 0.7;
-    }
+    font-size: 0.9rem;
+    margin: 0 8px;
+    opacity: 0.7;
+  }
 
   @media (max-width: 768px) {
     text-align: center;
     font-size: 1rem;
-
   }
 
-    @media (max-width: 450px) {
-      font-size: 0.6rem;
-      text-align: center;
+  @media (max-width: 450px) {
+    font-size: 0.6rem;
+    text-align: center;
 
     .tag {
       font-size: 0.5rem;
@@ -197,5 +248,3 @@ export const Description = styled(motion.p)`
     }
   }
 `;
-
-
