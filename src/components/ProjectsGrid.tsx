@@ -1,7 +1,9 @@
+import React from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { Project } from "../utils/type";
 import Typewriter from "typewriter-effect";
+import Toast from "./Toast";
 
 interface ProjectGridProps {
   projects: Project[];
@@ -39,6 +41,7 @@ const ProjectCard = styled(motion.div)`
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   transition: 0.3s;
+
   &:hover {
     transform: scale(1.05);
   }
@@ -57,11 +60,48 @@ const ProjectInfo = styled.div`
   font-weight: bold;
 `;
 
-const ProjectGrid = ({ selectedCategory, projects }: ProjectGridProps) => {
+const ButtonWrapper = styled.div`
+  margin-top: 10px;
+`;
+
+const ProjectButton = styled(motion.button)`
+  background: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.background};
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
+    opacity: 0.9;
+  }
+`;
+
+const ProjectGrid: React.FC<ProjectGridProps> = ({
+  selectedCategory,
+  projects,
+}) => {
+  const [isToastVisible, setIsToastVisible] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState("");
+
   const filteredProjects =
     selectedCategory === "All"
       ? projects
       : projects.filter((project) => project.category === selectedCategory);
+
+  const handleViewProject = (project: Project) => {
+    if (project.url === "in-view") {
+      setToastMessage("This project is still in progress!");
+      setIsToastVisible(true);
+    } else {
+      window.open(project.url, "_blank");
+    }
+  };
 
   return (
     <ProjectGridContainer>
@@ -74,9 +114,7 @@ const ProjectGrid = ({ selectedCategory, projects }: ProjectGridProps) => {
               .deleteAll()
               .start();
           }}
-          options={{
-            loop: true,
-          }}
+          options={{ loop: true }}
         />
       ) : (
         <Grid>
@@ -87,11 +125,45 @@ const ProjectGrid = ({ selectedCategory, projects }: ProjectGridProps) => {
               transition={{ duration: 0.3 }}
             >
               <ProjectImage src={project.image} alt={project.name} />
-              <ProjectInfo>{project.name}</ProjectInfo>
+              <ProjectInfo>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <span
+                    style={{
+                      whiteSpace: "nowrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {project.name}
+                  </span>
+                  <ButtonWrapper>
+                    <ProjectButton
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.2 }}
+                      onClick={() => handleViewProject(project)}
+                    >
+                      View Project
+                    </ProjectButton>
+                  </ButtonWrapper>
+                </div>
+              </ProjectInfo>
             </ProjectCard>
           ))}
         </Grid>
       )}
+
+      <Toast
+        message={toastMessage}
+        isVisible={isToastVisible}
+        onClose={() => setIsToastVisible(false)}
+        duration={5000}
+      />
     </ProjectGridContainer>
   );
 };

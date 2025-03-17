@@ -7,8 +7,9 @@ import FeaturedProjects from "../components/FeaturedProjectsCarousel";
 import ProjectGrid from "../components/ProjectsGrid";
 import { projectCategories } from "../utils/utils";
 import { Title } from "../utils/utils";
-import { Project } from "../utils/type";
+import { Project, ToastType } from "../utils/type";
 import { ChevronDown, ChevronUp, LoaderPinwheel } from "lucide-react";
+import Toast from "../components/Toast";
 
 const ProjectsContainer = styled.section`
   display: flex;
@@ -112,17 +113,31 @@ const ProjectsSection = () => {
   const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [projects, setProjects] = useState<Project[]>([]);
-
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<ToastType>("info");
 
   useEffect(() => {
     const fetchProjects = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "portfolio"));
         const data = querySnapshot.docs.map((doc) => doc.data() as Project);
+
+        // ✅ If successful, set success toast
+        // setToastType("success");
+        // setToastMessage("Projects fetched successfully!");
+        // setToastVisible(true);
+
         setProjects(data);
       } catch (error) {
         console.error("Error fetching projects:", error);
+
+        // ❌ On error, show error toast
+        setToastType("error");
+        setToastMessage("Failed to fetch projects. Please try again later.");
+        setToastVisible(true);
       } finally {
         setLoading(false);
       }
@@ -130,6 +145,7 @@ const ProjectsSection = () => {
 
     fetchProjects();
   }, []);
+
   return (
     <ProjectsContainer id="projects">
       <Title>
@@ -137,6 +153,15 @@ const ProjectsSection = () => {
         Projects
         <span className="tag">&lt;/h2&gt;</span>
       </Title>
+
+      <Toast
+        type={toastType}
+        message={toastMessage}
+        isVisible={toastVisible}
+        onClose={() => setToastVisible(false)}
+        duration={4000}
+      />
+
       <FilterContainer>
         {projectCategories.map((category) => (
           <FilterButton
@@ -148,7 +173,9 @@ const ProjectsSection = () => {
           </FilterButton>
         ))}
       </FilterContainer>
+
       <FeaturedProjects projects={projects} />
+
       {loading ? (
         <AnimatePresence>
           <motion.div
@@ -175,6 +202,7 @@ const ProjectsSection = () => {
           )}
         </ShowMoreButton>
       )}
+
       <AnimatePresence>
         {showMore && (
           <AnimatedGridWrapper

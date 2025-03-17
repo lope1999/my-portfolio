@@ -25,3 +25,5 @@ export interface Project {
   category?: string;
   id: string;
 }
+
+export type ToastType = "success" | "info" | "error" | "warning";
