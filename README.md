@@ -1,11 +1,14 @@
+````markdown
 # My Portfolio
 
-An elegant, responsive, and modern portfolio built with **React**, **TypeScript**, **Styled-Components**, **Framer Motion**, and **EmailJS**. This project showcases a **Hero Section**, **About Section**, **Contact Section** (with map), **Dark Mode**, and more.
+An elegant, responsive, and modern portfolio built with **React**, **TypeScript**, **Styled-Components**, **Framer Motion**, **Firebase**, and **EmailJS**. This project showcases a **Hero Section**, **About Section**, **Contact Section** (with map), **Dark Mode**, **Toast notifications**, and more.
 
 ![DarkMode Desktop Portfolio Screenshot](./public/darkmode_desktop.png "DarkMode Desktop Portfolio Screenshot")
 ![LightMode Desktop Portfolio Screenshot](./public/lightmode_desktop.png "LightMode Desktop Portfolio Screenshot")
 ![DarkMode Mobile Portfolio Screenshot](./public/darkmode_mobile.png "DarkMode Mobile Portfolio Screenshot")
 ![LightMode Mobile Portfolio Screenshot](./public/lightmode_mobile.png "LightMode Mobile Portfolio Screenshot")
+
+---
 
 ## Table of Contents
 
@@ -14,10 +17,12 @@ An elegant, responsive, and modern portfolio built with **React**, **TypeScript*
 3. [Getting Started](#getting-started)
 4. [Project Structure](#project-structure)
 5. [Scripts](#scripts)
-6. [EmailJS Integration](#emailjs-integration)
-7. [Dark Mode](#dark-mode)
-8. [Deployment on Vercel](#deployment-on-vercel)
-9. [License](#license)
+6. [Firebase Integration](#firebase-integration)
+7. [Toast Component](#toast-component)
+8. [EmailJS Integration](#emailjs-integration)
+9. [Dark Mode](#dark-mode)
+10. [Deployment on Vercel](#deployment-on-vercel)
+11. [License](#license)
 
 ---
 
@@ -25,9 +30,12 @@ An elegant, responsive, and modern portfolio built with **React**, **TypeScript*
 
 - **Responsive Design**: Looks great on desktop, tablet, and mobile.
 - **Hero Section**: Animated introduction with a call-to-action button.
-- **About Section**: A layout with an image displayed with parallax and fade-in effects using Framer Motion.
-- **TechStack Section**: Highlighted the technologies I use with cool animations.
-- **Projects Section**: A sleek grid showcasing my best work.
+- **About Section**: A layout with images and subtle animations using Framer Motion.
+- **TechStack Section**: Highlighted the technologies used with cool animations.
+- **Projects Section**:
+  - Fetches projects from **Firebase** (Firestore).
+  - Displays them in a sleek grid.
+  - Uses a **Toast** notification on success or error.
 - **Contact Section**: Contact form integrated with EmailJS + a live Google Map.
 - **Dark Mode**: Toggle between light and dark themes effortlessly.
 - **Framer Motion Animations**: Smooth transitions and interactive elements.
@@ -40,8 +48,8 @@ An elegant, responsive, and modern portfolio built with **React**, **TypeScript*
 - **React + TypeScript**: Core framework and static typing.
 - **Styled-Components**: Modular and dynamic styling.
 - **Framer Motion**: Declarative animations and scroll-based effects.
+- **Firebase (Firestore)**: Real-time database for storing and fetching projects.
 - **EmailJS**: Client-side email sending (no backend required).
-- **Google Maps Embed**: Display a live map next to the contact form.
 - **Vercel**: Deployment and hosting.
 
 ---
@@ -51,9 +59,10 @@ An elegant, responsive, and modern portfolio built with **React**, **TypeScript*
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/my-portfolio.git
+git clone https://github.com/lope1999/my-portfolio.git
 cd my-portfolio
 ```
+````
 
 ### 2. Install Dependencies
 
@@ -67,14 +76,17 @@ or
 yarn
 ```
 
-### 3. Set Up Environment Variables (Optional)
+### 3. Set Up Environment Variables
 
-If you have any environment variables (e.g., for EmailJS keys), create a `.env` file in the root directory:
+If you have environment variables (e.g., Firebase config, EmailJS keys), create a `.env` file in the root directory:
 
 ```
-REACT_APP_EMAILJS_SERVICE_ID=your_service_id
-REACT_APP_EMAILJS_TEMPLATE_ID=your_template_id
-REACT_APP_EMAILJS_PUBLIC_KEY=your_public_key
+REACT_APP_FIREBASE_API_KEY=xxx
+REACT_APP_FIREBASE_AUTH_DOMAIN=xxx
+REACT_APP_FIREBASE_PROJECT_ID=xxx
+REACT_APP_EMAILJS_SERVICE_ID=xxx
+REACT_APP_EMAILJS_TEMPLATE_ID=xxx
+REACT_APP_EMAILJS_PUBLIC_KEY=xxx
 ```
 
 > Make sure to add `.env` to your `.gitignore` to avoid committing secrets.
@@ -100,38 +112,39 @@ Then visit [http://localhost:3000](http://localhost:3000) to view your portfolio
 ```
 my-portfolio
 ├─ public
-│  ├─ darkmode_desktop.png
-│  ├─ darkmode_desktop.png
-│  ├─ darkmode_desktop.png
-│  ├─ darkmode_desktop.png
-│  └─ index.html
+│   ├─ darkmode_desktop.png
+│   ├─ darkmode_mobile.png
+│   ├─ lightmode_desktop.png
+│   ├─ lightmode_mobile.png
+│   └─ index.html
 ├─ src
-│  ├─ components
-│  │  ├─ HeroSection.tsx
-│  │  ├─ Button.tsx
-│  │  └─ ThemeToggle.tsx
-│  ├─ pages
-│  │  ├─ AboutSection.tsx
-│  │  └─ ContactSection.tsx
-│  ├─ context
-│  │  └─ ThemeContext.tsx
-│  ├─ styles
-│  │  └─ GlobalStyles.ts
-│  ├─ utils
-│  │  └─ utils.tsx
-│  ├─ App.tsx
-│  ├─ index.tsx
-│  └─ theme.ts
+│   ├─ components
+│   │   ├─ HeroSection.tsx
+│   │   ├─ ThemeToggle.tsx
+│   │   ├─ Toast.tsx
+│   │   ├─ ProjectsGrid.tsx
+│   │   └─ ...
+│   ├─ pages
+│   │   ├─ AboutSection.tsx
+│   │   ├─ ProjectsSection.tsx
+│   │   └─ ContactSection.tsx
+│   ├─ context
+│   │   └─ ThemeContext.tsx
+│   ├─ utils
+│   │   ├─ firebase.ts
+│   │   └─ utils.ts
+│   ├─ App.tsx
+│   ├─ index.tsx
+│   └─ theme.ts
 ├─ package.json
 ├─ README.md
 └─ tsconfig.json
 ```
 
-- **`components/`**: Reusable components (Hero, Button, ThemeToggle, etc.).
-- **`pages/`**: Main sections (About, Contact).
+- **`components/`**: Reusable components (Hero, Toast, ThemeToggle, ProjectsGrid, etc.).
+- **`pages/`**: Main sections (About, Projects, Contact).
 - **`context/`**: Theme context for dark/light mode.
-- **`styles/`**: Global styles, shared mixins, etc.
-- **`utils/`**: Utility functions, custom hooks, or constants.
+- **`utils/`**: Firebase config, helper functions, etc.
 - **`theme.ts`**: Light and dark theme objects.
 
 ---
@@ -172,30 +185,167 @@ In your `package.json`, you’ll typically have:
 
 ---
 
+## Firebase Integration
+
+1. **Install Firebase**:
+
+   ```bash
+   npm install firebase
+   ```
+
+   or
+
+   ```bash
+   yarn add firebase
+   ```
+
+2. **Configure Firestore** (in `src/utils/firebase.ts`):
+
+   ```ts
+   import { initializeApp } from "firebase/app";
+   import { getFirestore } from "firebase/firestore";
+
+   const firebaseConfig = {
+     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+     authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+     projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+     // ... other fields as needed
+   };
+
+   const app = initializeApp(firebaseConfig);
+   export const db = getFirestore(app);
+   ```
+
+3. **Fetch Data** (e.g., in `ProjectsSection.tsx`):
+
+   ```ts
+   import { collection, getDocs } from "firebase/firestore";
+   import { db } from "../utils/firebase";
+
+   useEffect(() => {
+     const fetchProjects = async () => {
+       try {
+         const querySnapshot = await getDocs(collection(db, "portfolio"));
+         const data = querySnapshot.docs.map((doc) => doc.data());
+         setProjects(data);
+       } catch (error) {
+         console.error("Error fetching projects:", error);
+       }
+     };
+     fetchProjects();
+   }, []);
+   ```
+
+4. **Security Rules**: Configure your Firestore rules if you want to restrict or allow certain reads/writes.
+
+---
+
+## Toast Component
+
+We use a **Toast** component to show **success** or **error** messages—especially handy after fetching data from Firebase. It includes:
+
+- **Type variants** (`success`, `info`, `error`, `warning`).
+- **Icons** to differentiate messages.
+- **Auto-close** after a specified duration.
+- **Progress bar** to visualize time remaining.
+
+**Example** (`src/components/Toast.tsx`):
+
+```tsx
+import React, { useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+import { motion, AnimatePresence } from "framer-motion";
+
+type ToastType = "success" | "info" | "error" | "warning";
+
+interface ToastProps {
+  type?: ToastType;
+  message: string;
+  isVisible: boolean;
+  onClose: () => void;
+  duration?: number;
+}
+
+// ... styles + keyframes ...
+
+const Toast: React.FC<ToastProps> = ({
+  type = "info",
+  message,
+  isVisible,
+  onClose,
+  duration = 3000,
+}) => {
+  // Auto-close logic
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(onClose, duration);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, duration, onClose]);
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <StyledToastWrapper /* ...motion variants... */>
+          {/* Toast content + progress bar */}
+        </StyledToastWrapper>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default Toast;
+```
+
+Then **use** it in your component:
+
+```tsx
+import Toast from "./Toast";
+
+const [toastVisible, setToastVisible] = useState(false);
+const [toastMessage, setToastMessage] = useState("");
+const [toastType, setToastType] = useState<
+  "success" | "error" | "info" | "warning"
+>("info");
+
+// Show success
+setToastType("success");
+setToastMessage("Projects fetched successfully!");
+setToastVisible(true);
+```
+
+---
+
 ## EmailJS Integration
 
 1. **Create an Account**: Sign up at [EmailJS](https://www.emailjs.com/).
 2. **Configure**: Create an email service (Gmail, SMTP, etc.) and a template.
-3. **Add Credentials**: In `ContactSection.tsx`, replace placeholders with your actual `SERVICE_ID`, `TEMPLATE_ID`, and `PUBLIC_KEY`.
-4. **Form Fields**: Make sure the `name` attributes in your inputs match your EmailJS template variables (e.g., `name="from_name"`, `name="email"`, `name="message"`).
+3. **Add Credentials**: In your `.env` or directly in code, define `SERVICE_ID`, `TEMPLATE_ID`, and `PUBLIC_KEY`.
+4. **Form Fields**: Ensure your input names match your EmailJS template variables.
+
+**Example** (`ContactSection.tsx`):
 
 ```tsx
 import emailjs from "emailjs-com";
 
 const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
-  if (!formRef.current) return;
-
   emailjs
     .sendForm(
-      process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_xxx",
-      process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "template_xxx",
-      formRef.current,
-      process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "publicKey_xxx"
+      process.env.REACT_APP_EMAILJS_SERVICE_ID!,
+      process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
+      formRef.current!,
+      process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
     )
     .then(
-      (result) => alert("Your message has been sent!"),
-      (error) => alert("An error occurred, please try again.")
+      () =>
+        setToast({ message: "Message sent!", type: "success", visible: true }),
+      () =>
+        setToast({
+          message: "Error, please try again.",
+          type: "error",
+          visible: true,
+        })
     );
 };
 ```
@@ -204,12 +354,12 @@ const handleSubmit = (e: React.FormEvent) => {
 
 ## Dark Mode
 
-- **ThemeContext**: I used a `ThemeContext` to toggle between light and dark themes.
-- **GlobalStyles**: Dynamically reads from `theme` to style `body`, `background`, and `text`.
+- **ThemeContext**: A `ThemeContext` toggles between **light** and **dark** themes.
+- **GlobalStyles**: Dynamically reads from the context to style `body`, `background`, and `text`.
 - **Toggle Button**: A button in `ThemeToggle.tsx` calls `toggleTheme()` from the context.
 
-```tsx
-// Light and Dark theme objects
+```ts
+// theme.ts
 export const lightTheme = {
   background: "#f9f6f1",
   text: "#1a1a1a",
@@ -230,14 +380,10 @@ export const darkTheme = {
 1. **Create a Vercel Account**: [https://vercel.com](https://vercel.com)
 2. **Connect Git Repository**: Vercel will import your repo and detect `create-react-app` or `vite` automatically.
 3. **Build & Output Settings**:
-   - For **Create React App**:
-     - **Build Command**: `npm run build`
-     - **Output Directory**: `build`
-   - For **Vite**:
-     - **Build Command**: `npm run build`
-     - **Output Directory**: `dist`
-4. **Environment Variables**: Add your EmailJS keys in **Project Settings** → **Environment Variables**.
-5. **Deploy**: Click **Deploy**. Your site will be live at something like `https://my-portfolio.vercel.app`.
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `build` (or `dist` if Vite)
+4. **Environment Variables**: Add your Firebase & EmailJS keys in **Project Settings** → **Environment Variables**.
+5. **Deploy**: Click **Deploy**. Your site will be live at something like `https://my-portfolio-suliat.vercel.app/`.
 
 ---
 
@@ -253,8 +399,13 @@ See the [LICENSE](LICENSE) file for more details.
 **Suliat Titilope Alaga**  
 _Be Obsessed with Growth!_
 
-Enjoy your new portfolio! If you have any questions or run into issues, feel free to reach out.
+Enjoy your new portfolio! If you have any questions or run into issues, feel free to reach out;
+💌 alagasuliattitilope@email.com.
+
+_Happy coding and showcasing your brand!_
+
+```
 
 ---
 
-_Happy coding and showcasing your brand!_
+```

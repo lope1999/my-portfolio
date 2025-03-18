@@ -1,9 +1,11 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import Button from "../components/Button";
 import { Description, Title } from "../utils/utils";
 import emailjs from "emailjs-com";
+import Toast from "../components/Toast";
+import { ToastType } from "../utils/type";
 
 const ContactContainer = styled(motion.section)`
   display: flex;
@@ -35,7 +37,6 @@ const MapWrapper = styled(motion.div)`
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
-  border-radius: "8px";
 
   @media (max-width: 768px) {
     margin-top: 20px;
@@ -71,9 +72,12 @@ const TextArea = styled.textarea`
 const ContactSection = () => {
   const formRef = useRef<HTMLFormElement>(null);
 
+  const [toastVisible, setToastVisible] = useState(false);
+  const [toastMessage, setToastMessage] = useState("");
+  const [toastType, setToastType] = useState<ToastType>("info");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!formRef.current) return;
 
     emailjs
@@ -84,14 +88,21 @@ const ContactSection = () => {
         process.env.REACT_APP_EMAILJS_PUBLIC_KEY || ""
       )
       .then(
-        (result) => {
-          console.log("SUCCESS!", result.text);
-          alert("Your message has been sent successfully!");
-          window.location.reload();
+        () => {
+          setToastType("success");
+          setToastMessage(
+            "Your message has been sent successfully! Expect a feedback real soon.😀"
+          );
+          setToastVisible(true);
+
+          if (formRef.current) {
+            formRef.current.reset();
+          }
         },
-        (error) => {
-          console.log("FAILED...", error.text);
-          alert("Oops! Something went wrong, please try again.");
+        () => {
+          setToastType("error");
+          setToastMessage("Oops! Something went wrong, please try again.");
+          setToastVisible(true);
         }
       );
   };
@@ -115,6 +126,7 @@ const ContactSection = () => {
           Get in Touch
           <span className="tag">&lt;/h2&gt;</span>
         </Title>
+
         <Description>
           <span className="tag">&lt;p&gt;</span>I am open to freelance
           opportunities, startups, and large-scale projects. However, if you
@@ -122,6 +134,7 @@ const ContactSection = () => {
           will be happy to respond.
           <span className="tag">&lt;/p&gt;</span>
         </Description>
+
         <ContactForm ref={formRef} onSubmit={handleSubmit}>
           <InputField placeholder="Name" type="text" name="name" required />
           <InputField placeholder="Email" type="email" name="email" required />
@@ -157,6 +170,14 @@ const ContactSection = () => {
           referrerPolicy="no-referrer-when-downgrade"
         />
       </MapWrapper>
+
+      <Toast
+        type={toastType}
+        message={toastMessage}
+        isVisible={toastVisible}
+        onClose={() => setToastVisible(false)}
+        duration={3000}
+      />
     </ContactContainer>
   );
 };

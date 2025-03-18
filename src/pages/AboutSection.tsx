@@ -60,12 +60,17 @@ const ImageContainer = styled(motion.div)`
 
   &:hover {
     scale: 1.05;
-    rotate: 3deg;
+    rotate: 10deg;
   }
 
   @media (max-width: 768px) {
-    width: 250px;
-    height: 250px;
+    width: 300px;
+    height: 300px;
+
+    &:hover {
+      scale: 1.05;
+      rotate: 12deg;
+    }
   }
 `;
 
@@ -95,7 +100,7 @@ const AboutSection = () => {
   // Parallax + Fade transforms
   const y = useTransform(scrollYProgress, [0, 1], [-50, 50]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.5], [0, 0.5, 1]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-30, 60]);
   const glowScale = useTransform(scrollYProgress, [0, 1], [0.9, 1.1]);
   const textY = useTransform(scrollYProgress, [0, 1], [-20, 20]);
 
