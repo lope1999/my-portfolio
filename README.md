@@ -404,10 +404,4 @@ _Happy coding and showcasing your brand!_
 
 ```
 
----
-
-```
-
-```
-
 ```
