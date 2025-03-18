@@ -5,12 +5,11 @@ import ThemeToggle from "./ThemeToggle";
 import { NavbarProps } from "../utils/type";
 import { navItems } from "../utils/utils";
 
-// A small wrapper for our icon animations
 const IconWrapper = styled(motion.span)`
   display: inline-flex;
   align-items: center;
-  margin-right: 8px; /* space between icon and label */
-  color: inherit; /* inherit text color */
+  margin-right: 8px;
+  color: inherit;
 `;
 
 const NavbarContainer = styled(motion.nav)<NavbarProps>`
@@ -50,7 +49,6 @@ const NavItem = styled(motion.a)`
   position: relative;
   cursor: pointer;
   transition: color 0.3s;
-
   display: inline-flex; /* So icon & label align horizontally */
   align-items: center;
 
@@ -162,11 +160,20 @@ const MobileNavItem = styled(motion.a)`
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeHash, setActiveHash] = useState("");
 
   useEffect(() => {
+    setActiveHash(window.location.hash);
+
+    const handleHashChange = () => {
+      setActiveHash(window.location.hash);
+    };
+    window.addEventListener("hashchange", handleHashChange);
+
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+    window.addEventListener("scroll", handleScroll);
 
     const handleClickOutside = (event: MouseEvent) => {
       const menu = document.getElementById("mobile-menu");
@@ -174,31 +181,34 @@ const Navbar = () => {
         setMenuOpen(false);
       }
     };
-
-    window.addEventListener("scroll", handleScroll);
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
+      window.removeEventListener("hashchange", handleHashChange);
       window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
+  const handleNavItemClick = (href: string) => {
+    setActiveHash(href);
+    setMenuOpen(false);
+    window.location.hash = href;
+  };
+
   return (
     <NavbarContainer scrolled={scrolled}>
       <h2>👩🏾‍💻 Suliat</h2>
       <RightContainer>
-        {/* Desktop Links */}
         <NavLinks>
           {navItems.map((item, idx) => (
             <NavItem
               key={item.href}
-              href={item.href}
-              // Simple hover animation on the entire link
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 15 }}
-              className={window.location.hash === item.href ? "active" : ""}
+              className={activeHash === item.href ? "active" : ""}
+              onClick={() => handleNavItemClick(item.href)}
             >
-              {/* Icon with its own hover animation */}
               <IconWrapper
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.5 }}
@@ -210,14 +220,11 @@ const Navbar = () => {
           ))}
         </NavLinks>
 
-        {/* Theme Toggle */}
         <ThemeToggle />
 
-        {/* Mobile Menu Icon (Hamburger) */}
         <MobileMenuIcon onClick={() => setMenuOpen(true)}>☰</MobileMenuIcon>
       </RightContainer>
 
-      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {menuOpen && (
           <MobileMenuContainer
@@ -233,12 +240,11 @@ const Navbar = () => {
               {navItems.map((item, index) => (
                 <MobileNavItem
                   key={item.href}
-                  href={item.href}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={() => handleNavItemClick(item.href)}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 * (index + 1) }}
-                  className={window.location.hash === item.href ? "active" : ""}
+                  className={activeHash === item.href ? "active" : ""}
                   whileHover={{ scale: 1.05 }}
                 >
                   <IconWrapper
