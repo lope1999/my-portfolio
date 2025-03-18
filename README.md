@@ -1,4 +1,3 @@
-````markdown
 # My Portfolio
 
 An elegant, responsive, and modern portfolio built with **React**, **TypeScript**, **Styled-Components**, **Framer Motion**, **Firebase**, and **EmailJS**. This project showcases a **Hero Section**, **About Section**, **Contact Section** (with map), **Dark Mode**, **Toast notifications**, and more.
@@ -62,6 +61,7 @@ An elegant, responsive, and modern portfolio built with **React**, **TypeScript*
 git clone https://github.com/lope1999/my-portfolio.git
 cd my-portfolio
 ```
+
 ````
 
 ### 2. Install Dependencies
@@ -389,14 +389,14 @@ export const darkTheme = {
 
 ## License
 
-This project is open-source (MIT License). Feel free to modify and distribute as you like.  
+This project is open-source (MIT License). Feel free to modify and distribute as you like.
 See the [LICENSE](LICENSE) file for more details.
 
 ---
 
 ### Author
 
-**Suliat Titilope Alaga**  
+**Suliat Titilope Alaga**
 _Be Obsessed with Growth!_
 
 Enjoy your new portfolio! If you have any questions or run into issues, feel free to reach out;
@@ -409,3 +409,4 @@ _Happy coding and showcasing your brand!_
 ---
 
 ```
+````
