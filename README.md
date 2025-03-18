@@ -62,8 +62,6 @@ git clone https://github.com/lope1999/my-portfolio.git
 cd my-portfolio
 ```
 
-````
-
 ### 2. Install Dependencies
 
 ```bash
@@ -409,4 +407,7 @@ _Happy coding and showcasing your brand!_
 ---
 
 ```
-````
+
+```
+
+```
