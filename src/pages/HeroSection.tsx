@@ -23,6 +23,12 @@ const HeroContainer = styled(motion.section)`
   color: ${({ theme }) => theme.text};
   padding: 20px;
   overflow: hidden; /* Hide any shapes that move off-screen */
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2rem;
+    }
+  }
 `;
 
 const AnimatedShape = styled(motion.div)`
@@ -69,7 +75,9 @@ const HeroSection: React.FC = () => {
               .typeString("Hi, I'm Suliat Titilope Alaga")
               .pauseFor(1200)
               .deleteAll()
-              .typeString("Software Engineer | Entrepreneur | Creative Mind")
+              .typeString(
+                "Software Engineer 👩🏾‍💻 |  Enterprenuer 🌸 | Creative Mind 🧑🏾‍🎨"
+              )
               .start();
           }}
           options={{

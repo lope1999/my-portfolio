@@ -18,7 +18,7 @@ const AboutContainer = styled.section`
 
   @media (max-width: 768px) {
     padding: 30px 10px;
-    height: 100vh;
+    height: 120vh;
   }
 `;
 
@@ -131,18 +131,20 @@ const AboutSection = () => {
         <Divider />
         <Description>
           <span className="tag">&lt;p&gt;</span>
-          I&apos;m Suliat Titilope Alaga, a Software Engineer with years of
-          experience building web-based applications, and tools for finance and
-          security. I hold a First Class (Honours) Bachelor’s Degree in Computer
-          Science and a Distinction National Diploma’s Degree in Data Processing
-          . Additionally, I am proficient in HTML, CSS, JavaScript, Material UI,
-          and Reactjs for frontend development, and have experience with
-          Java(Springboot Framework) and Nestjs for backend development . I am a
-          skilled full-stack developer and open to opportunities that would
-          enable me work on diverse projects and support the vision of the
-          company to deliver exceptional service without compromising standards.
-          I'm confident, naturally curious, and perpetually working on improving
-          my chops one design problem at a time.
+          Hi, I’m Suliat Titilope Alaga, a Software Engineer passionate about
+          building high-performance web applications that power finance,
+          security, health and beyond. Graduated with a First-Class (Honours)
+          Bachelor's Degree in Computer Science and a Distinction in Data
+          Processing, I bring a strong technical foundation and a drive for
+          excellence to everything I do. My expertise spans both frontend and
+          backend development, with a keen eye for intuitive UI/UX and robust,
+          scalable backend solutions. 🔹 Frontend: React.js, Material UI,
+          JavaScript, TypeScript, HTML, CSS 🔹 Backend: Java (Spring Boot),
+          Nest.js 🔹 Strengths: Performance-driven development, problem-solving,
+          and a relentless pursuit of innovation. I thrive on tackling complex
+          challenges, transforming ideas into impactful solutions, and
+          collaborating with teams that push boundaries. Let’s build something
+          groundbreaking!
           <span className="tag">&lt;/p&gt;</span>
         </Description>
       </TextContainer>

@@ -24,6 +24,8 @@ export interface Project {
   url: string;
   category?: string;
   id: string;
+  order: number;
+  hidden?: boolean;
 }
 
 export type ToastType = "success" | "info" | "error" | "warning";

@@ -34,6 +34,10 @@ const StyledButton = styled(motion.button)<{ as?: string }>`
     background: ${({ theme }) => theme.text};
     color: ${({ theme }) => theme.accent};
   }
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+  }
 `;
 
 const Button: React.FC<ButtonProps> = ({

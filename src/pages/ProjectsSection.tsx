@@ -123,7 +123,10 @@ const ProjectsSection = () => {
     const fetchProjects = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, "portfolio"));
-        const data = querySnapshot.docs.map((doc) => doc.data() as Project);
+        const data = querySnapshot.docs
+          .map((doc) => doc.data() as Project)
+          .filter((project) => !project.hidden)
+          .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
         // ✅ If successful, set success toast
         // setToastType("success");
