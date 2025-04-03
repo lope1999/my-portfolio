@@ -80,12 +80,17 @@ const Footer: React.FC = () => {
         <Socials>
           {socialLinks.map((link, index) => {
             const IconComponent = link.icon as React.ElementType;
+
             return (
               <SocialIcon
                 key={index}
                 href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
+                target={link.href.startsWith("mailto:") ? "_self" : "_blank"}
+                rel={
+                  link.href.startsWith("mailto:")
+                    ? undefined
+                    : "noopener noreferrer"
+                }
                 whileHover={{ rotate: 360, scale: 1.2 }}
                 transition={{ duration: 0.5 }}
               >
